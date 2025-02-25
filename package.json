@@ -1,6 +1,7 @@
 {
   
   "name": "todo-app",
+  "type": "module",
   "version": "1.0.0",
   "description": "A full-stack todo application",
   "main": "index.js",
