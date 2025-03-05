@@ -20,6 +20,8 @@ mongoose
 
 // Use routes
 app.use('/api', todoRouter);
+app.use(express.static("client"));
+
 // Basic route
 app.get("/", (req, res) => {
   res.json("Welcome to my app!");
