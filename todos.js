@@ -32,8 +32,5 @@ router.post("/todos", async (req, res) => {
   }
 });
 
-router.get("/todos", async (req, res) => {
-    todo.findById("67bdcf080ef9d7f2b1cd193e")
-})
 
 export { router as todoRouter };
