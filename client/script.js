@@ -6,16 +6,15 @@ let list = document.getElementById('todoList')
 // Fetch all todos when page loads
 async function fetchTodos() {
   // add your code
-  try{
-    const response = await  fetch("/api/todos", {
-      method: "POST"
-    })
-    if(!response.ok){
-       throw new Error(`Response status: ${response.status}`);
+  try {
+    const response = await fetch("/api/todos");
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
     }
+
     const json = await response.json();
-    console.log(json)
-  } catch(error){
+    console.log(json);
+  } catch (error) {
     console.error(error.message);
   }
  
@@ -34,6 +33,22 @@ function displayTodos(todos) {
 todoForm.addEventListener("submit", async (e) => {
   // add your code
   e.preventDefault();
+  try {
+    const response = await fetch("/api/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title: input.value }),
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.error(error.message);
+  }
   displayTodos()
 });
 
