@@ -3,6 +3,7 @@ let form = document.getElementById('todoForm')
 let input = document.getElementById('todoInput')
 let btn = document.getElementsByTagName('button')
 let list = document.getElementById('todoList')
+let todos = []
 // Fetch all todos when page loads
 async function fetchTodos() {
   // add your code
@@ -12,8 +13,9 @@ async function fetchTodos() {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const json = await response.json();
-    console.log(json);
+    todos = await response.json();
+    console.log(todos);
+    displayTodos()
   } catch (error) {
     console.error(error.message);
   }
@@ -21,11 +23,14 @@ async function fetchTodos() {
 }
 
 // Display todos in the list
-function displayTodos(todos) {
+function displayTodos() {
   // add your code
- todos = fetchTodos()
+  let listHTML = ""
+todos.forEach((todo) => {
+  listHTML += `<li> ${todo.title} </li>`
+});
 
-  list.append(todos)
+list.innerHTML = listHTML 
   console.log(list)
 }
 
