@@ -50,6 +50,7 @@ function displayTodos(todos) {
 }
 
 
+
 async function deleteTodo(todoId) {
   // Send a DELETE request to the backend
   await fetch(`/api/todos/${todoId}`, {
@@ -60,6 +61,29 @@ async function deleteTodo(todoId) {
   fetchTodos();
 }
 
+async function updateTodo(id, upTitle) {
+  try {
+    const updatedTodo = { title: upTitle };
+    const response = await fetch(`/api/todos/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTodo),
+    });
+    const result = await response.json();
+    if (response.ok) {
+      alert("Todo updated!");
+      fetchTodos(); // Refresh the todo list
+    } else {
+      alert("Failed to update todo");
+    }
+  } catch (error) {
+    console.error("Error updating todo:", error);
+  }
+
+  
+}
 
 // Handle form submission
 todoForm.addEventListener("submit", async (e) => {
@@ -95,4 +119,3 @@ todoForm.addEventListener("submit", async (e) => {
 // 
 // Load todos when page loads
 fetchTodos();
-t
