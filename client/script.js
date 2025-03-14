@@ -15,17 +15,51 @@ async function fetchTodos() {
 // Display todos in the list
 function displayTodos(todos) {
   // add your code
-   todoList.innerHTML = ""; // Clear existing todos
+   todoList.innerHTML = ""; 
 
    todos.forEach((todo) => {
      const li = document.createElement("li");
      li.textContent = todo.title;
+     li.id = todo._id;
+     const deleteButton = document.createElement("button");
+     deleteButton.textContent = "Delete";
+     deleteButton.classList.add("delete-btn"); 
+     deleteButton.addEventListener("click", () => {
+       // Call the deleteTodo function when clicked
+       deleteTodo(todo._id);
+     });
+
+     const upButton = document.createElement('button')
+     upButton.textContent = "update"
+
+      upButton.addEventListener("click", () => {
+        const upTitle = prompt("Edit your todo:", todo.title);
+        if (upTitle) {
+          updateTodo(todo._id, upTitle);
+        }
+      });
+
+      li.appendChild(upButton)
+     li.appendChild(deleteButton);
      todoList.appendChild(li);
    });
+
 
 // list.innerHTML = listHTML 
 //   console.log(list)
 }
+
+
+async function deleteTodo(todoId) {
+  // Send a DELETE request to the backend
+  await fetch(`/api/todos/${todoId}`, {
+    method: "DELETE",
+  });
+
+  // After deletion, fetch the updated list of todos
+  fetchTodos();
+}
+
 
 // Handle form submission
 todoForm.addEventListener("submit", async (e) => {
@@ -48,9 +82,17 @@ todoForm.addEventListener("submit", async (e) => {
     body: JSON.stringify(newTodo),
   });
 
-  todoInput.value = ""; // Clear input field
+  todoInput.value = ""; 
   fetchTodos();  
 });
 
+
+
+
+
+
+
+// 
 // Load todos when page loads
 fetchTodos();
+t
