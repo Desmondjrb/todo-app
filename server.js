@@ -19,11 +19,11 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Use routes
-app.use('/api', todoRouter);
+app.use("/api", todoRouter);
 app.use(express.static("client"));
 
 // Basic route
-app.get("/", (req, res) => {
+app.get("/client", (req, res) => {
   res.json("Welcome to my app!");
 });
 
@@ -31,5 +31,3 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
-
-
