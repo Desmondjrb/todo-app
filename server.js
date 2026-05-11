@@ -36,4 +36,10 @@ app.get("/*", (req, res) => {
   res.sendFile(join(__dirname, "client", "index.html"));
 });
 
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 export default app;
