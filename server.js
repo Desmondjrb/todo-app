@@ -17,10 +17,19 @@ const __dirname = dirname(__filename);
 app.use(express.json());
 
 // MongoDB Connection
+const mongoUri = process.env.MONGODB_URI;
+if (!mongoUri) {
+  console.error("Missing MONGODB_URI environment variable.");
+  process.exit(1);
+}
+
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(mongoUri)
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1);
+  });
 
 // Use routes
 app.use("/api", todoRouter);

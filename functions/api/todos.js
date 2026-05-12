@@ -5,7 +5,7 @@ export async function onRequest(context) {
   const pathParts = url.pathname.split("/");
   const id = pathParts[pathParts.length - 1]; // for /api/todos/:id
 
-  const DATA_API_URL = env.DATA_API_URL;
+  const DATA_API_URL = env.MONGODB_URI.replace("mongodb+srv://", "https://data.mongodb-api.com/app/").replace("/?appName=Cluster0", "/endpoint/data/v1/action");
   const API_KEY = env.API_KEY;
   const DATA_SOURCE = env.DATA_SOURCE;
   const DATABASE = env.DATABASE;

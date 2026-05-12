@@ -9,6 +9,17 @@ A full-stack todo application that can run on Cloudflare Pages with Functions.
 3. Start the server: `npm run dev`
 4. Open `http://localhost:3000` in your browser
 
+## Deployment to Vercel
+
+1. Link the local repo to your Vercel project:
+   - `npx vercel link`
+2. Set the environment variable in Vercel:
+   - `MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.7tik1.mongodb.net/todo_db?retryWrites=true&w=majority`
+3. Deploy to production:
+   - `npx vercel --prod`
+
+> The Vercel deployment uses `server.js` and `vercel.json` so your Express server code is the app entrypoint.
+
 ## Deployment to Cloudflare
 
 ### Prerequisites
@@ -33,6 +44,10 @@ A full-stack todo application that can run on Cloudflare Pages with Functions.
 ### Environment Variables
 
 For production, set the environment variables in your Cloudflare Pages dashboard or via Wrangler.
+
+### Vercel Environment Variables
+
+For Vercel, set `MONGODB_URI` in your project settings.
 
 ## API Endpoints
 
