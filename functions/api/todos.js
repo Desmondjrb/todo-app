@@ -1,4 +1,5 @@
-export default async function handler(request, env) {
+export async function onRequest(context) {
+  const { request, env } = context;
   const url = new URL(request.url);
   const method = request.method;
   const pathParts = url.pathname.split("/");
@@ -121,7 +122,10 @@ export default async function handler(request, env) {
         });
       }
     } else {
-      return new Response("Method not allowed", { status: 405 });
+      return new Response(JSON.stringify({ message: "Method not allowed" }), {
+        status: 405,
+        headers: { "Content-Type": "application/json" },
+      });
     }
   } catch (error) {
     return new Response(JSON.stringify({ message: error.message }), {

@@ -10,7 +10,15 @@ async function fetchTodos() {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const todos = await response.json();
+    const text = await response.text();
+    let todos;
+    try {
+      todos = JSON.parse(text || "null");
+    } catch (parseError) {
+      throw new Error(
+        `Invalid JSON response from /api/todos: ${text || "(empty body)"}`,
+      );
+    }
     displayTodos(todos);
   } catch (error) {
     console.error("Failed to fetch todos:", error);
