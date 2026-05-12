@@ -24,22 +24,23 @@ mongoose
 
 // Use routes
 app.use("/api", todoRouter);
-app.use(express.static(join(__dirname, "client")));
+app.use(express.static(join(__dirname, "public")));
 
 // Serve the client app for the root route
 app.get("/", (req, res) => {
-  res.sendFile(join(__dirname, "client", "index.html"));
+  res.sendFile(join(__dirname, "public", "index.html"));
 });
 
 // Fallback to index for client-side routes
 app.get("/*", (req, res) => {
-  res.sendFile(join(__dirname, "client", "index.html"));
+  res.sendFile(join(__dirname, "public", "index.html"));
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 export default app;

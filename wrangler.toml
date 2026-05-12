@@ -1,9 +1,0 @@
-name = "todo-app"
-compatibility_date = "2024-01-01"
-
-[vars]
-DATA_API_URL = "https://data.mongodb-api.com/app/your-app-id/endpoint/data/v1"
-API_KEY = "your-api-key"
-DATA_SOURCE = "Cluster0"
-DATABASE = "todo_db"
-COLLECTION = "todos"
