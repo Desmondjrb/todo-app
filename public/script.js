@@ -19,6 +19,10 @@ async function fetchTodos() {
         `Invalid JSON response from /api/todos: ${text || "(empty body)"}`,
       );
     }
+    if (!Array.isArray(todos)) {
+      console.warn("Expected todos array, got:", todos);
+      todos = [];
+    }
     displayTodos(todos);
   } catch (error) {
     console.error("Failed to fetch todos:", error);

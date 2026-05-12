@@ -3,13 +3,16 @@ import express from "express";
 const router = express.Router();
 
 // Todo Schema and Model
-const todoSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+const todoSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
   },
-});
-const Todo = mongoose.model("Todo", todoSchema);
+  { timestamps: true },
+);
+const Todo = mongoose.models.Todo || mongoose.model("Todo", todoSchema);
 
 // GET all todos
 router.get("/todos", async (req, res) => {
@@ -61,6 +64,5 @@ router.put("/todos/:id", async (req, res) => {
     res.status(500).json({ message: "Error updating todo", error });
   }
 });
-
 
 export { router as todoRouter };
