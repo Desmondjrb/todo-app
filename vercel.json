@@ -12,6 +12,14 @@
   ],
   "routes": [
     {
+      "src": "^/api/todos/([^/]+)$",
+      "dest": "/api/todos/[id].js"
+    },
+    {
+      "src": "^/api/todos$",
+      "dest": "/api/todos/index.js"
+    },
+    {
       "src": "^/$",
       "dest": "/client/index.html"
     },
