@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-import { todoRoute } from "./todos.js";
+import { todoRouter } from "./todos.js";
 // Load environment variables
 dotenv.config();
 
