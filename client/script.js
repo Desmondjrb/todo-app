@@ -57,6 +57,11 @@ async function deleteTodo(todoId) {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
+      if (response.status === 404) {
+        // If the item is already gone, refresh the list anyway.
+        fetchTodos();
+        return;
+      }
       alert(errorData.message || "Failed to delete todo");
       return;
     }

@@ -4,7 +4,16 @@ export default async function handler(req, res) {
   await connectToDatabase();
   const Todo = getTodoModel();
 
-  const { id } = req.query || {};
+  const getIdFromReq = () => {
+    if (req.query?.id) {
+      return Array.isArray(req.query.id) ? req.query.id[0] : req.query.id;
+    }
+    const url = req.url || "";
+    const match = url.match(/\/todos\/([^\/\?&]+)/);
+    return match ? match[1] : null;
+  };
+
+  const id = getIdFromReq();
   if (!id) {
     return res.status(400).json({ message: "Missing id parameter" });
   }
