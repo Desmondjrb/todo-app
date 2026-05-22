@@ -31,6 +31,7 @@ function displayTodos(todos) {
 
      const upButton = document.createElement('button')
      upButton.textContent = "update"
+     upButton.classList.add('update-btn');
 
       upButton.addEventListener("click", () => {
         const upTitle = prompt("Edit your todo:", todo.title);
@@ -39,6 +40,7 @@ function displayTodos(todos) {
         }
       });
 
+      deleteButton.classList.add("delete-btn");
       li.appendChild(upButton)
      li.appendChild(deleteButton);
      todoList.appendChild(li);
@@ -52,13 +54,22 @@ function displayTodos(todos) {
 
 
 async function deleteTodo(todoId) {
-  // Send a DELETE request to the backend
-  await fetch(`/api/todos/${todoId}`, {
-    method: "DELETE",
-  });
+  try {
+    const response = await fetch(`/api/todos/${todoId}`, {
+      method: "DELETE",
+    });
 
-  // After deletion, fetch the updated list of todos
-  fetchTodos();
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      alert(errorData.message || "Failed to delete todo");
+      return;
+    }
+
+    fetchTodos();
+  } catch (error) {
+    console.error("Error deleting todo:", error);
+    alert("Unable to delete todo. Please try again.");
+  }
 }
 
 async function updateTodo(id, upTitle) {
